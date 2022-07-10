@@ -17,7 +17,7 @@ export default function Home() {
   const getUserItem = async () => {
     const res = await fetch("/api/user");
     const json = await res.json();
-    console.log("⭐️ looking ofr user obj", json);
+    console.log("⭐️ looking for user obj", json);
   };
 
   const saveToDatabase = async (item) => {
