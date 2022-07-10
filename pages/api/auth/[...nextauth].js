@@ -1,7 +1,13 @@
+import { NextApiHandler } from "next";
 import NextAuth from "next-auth";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import SpotifyProvider from "next-auth/providers/spotify";
+import prisma from "../../../lib/prisma";
 
-export default NextAuth({
+const handler = (req, res) => NextAuth(req, res, options);
+export default handler;
+
+const options = {
   providers: [
     SpotifyProvider({
       authorization:
@@ -10,7 +16,7 @@ export default NextAuth({
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     }),
   ],
-
+  adapter: PrismaAdapter(prisma),
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
@@ -23,4 +29,4 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
