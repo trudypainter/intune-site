@@ -1,0 +1,25 @@
+{
+  "name": "next-spotify",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npx next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "-": "0.0.1",
+    "@prisma/client": "^4.0.0",
+    "D": "^1.0.0",
+    "next": "11.1.2",
+    "next-auth": "^4.0.0-beta.4",
+    "prisma": "^4.0.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2"
+  }
+}
