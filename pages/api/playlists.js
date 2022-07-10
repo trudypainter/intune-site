@@ -1,7 +1,8 @@
 import { getUsersPlaylists } from "../../lib/spotify";
 import { getSession } from "next-auth/react";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+
+// const prisma = new PrismaClient();
 
 const handler = async (req, res) => {
   const {

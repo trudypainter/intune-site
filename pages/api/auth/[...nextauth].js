@@ -2,10 +2,12 @@ import { NextApiHandler } from "next";
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import SpotifyProvider from "next-auth/providers/spotify";
-import prisma from "../../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 
 const handler = (req, res) => NextAuth(req, res, options);
 export default handler;
+
+let prisma = new PrismaClient();
 
 const options = {
   providers: [
@@ -17,6 +19,12 @@ const options = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
+
+  session: {
+    strategy: "jwt",
+    maxAge: 3000,
+  },
+
   callbacks: {
     async jwt({ token, account }) {
       if (account) {
