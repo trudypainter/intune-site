@@ -7,6 +7,7 @@ const handler = async (req, res) => {
     token: { accessToken, email },
   } = await getSession({ req });
 
+  console.log("🟠 got session", accessToken);
   // parallel promises
 
   const shortSongPromise = getUserTopSongs(accessToken, "short_term");
@@ -17,6 +18,7 @@ const handler = async (req, res) => {
   const medArtistPromise = getUserTopArtists(accessToken, "medium_term");
   const longArtistPromise = getUserTopArtists(accessToken, "long_term");
 
+  console.log("🟠 awaiting promises...");
   // await all of the promises
   const shortSongResponse = await shortSongPromise;
   const medSongResponse = await medSongPromise;
