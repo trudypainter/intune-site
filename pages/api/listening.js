@@ -3,6 +3,8 @@ import { getSession } from "next-auth/react";
 import { PrismaClient } from "@prisma/client";
 
 const handler = async (req, res) => {
+  console.log("🟠 got api call");
+
   const {
     token: { accessToken, email },
   } = await getSession({ req });
