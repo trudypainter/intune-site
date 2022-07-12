@@ -8,6 +8,7 @@ const handler = async (req, res) => {
   const {
     token: { accessToken, email },
   } = await getSession({ req });
+
   if (req.method === "POST") {
     const { body } = req;
     const {

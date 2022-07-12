@@ -13,9 +13,6 @@ const handler = async (req, res) => {
       email: email,
     },
   });
-
-  console.log("⭐️ user");
-
   return res.status(200).json(user);
 };
 
