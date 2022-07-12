@@ -28,10 +28,11 @@ const ProfileStats = (props) => {
 
   const getRecentSongs = async () => {
     console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
+    console.log(props.session);
 
     const res = await fetch(`${server}api/listening`, {
-      method: "GET",
-      body: JSON.stringify(),
+      method: "POST",
+      body: JSON.stringify({ token: props.session.token.accessToken }),
     });
     const data = await res.json();
     console.log("🟠 recent songs", data);
