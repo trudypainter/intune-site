@@ -2,7 +2,7 @@ import { getUserTopArtists, getUserTopSongs } from "../../lib/spotify";
 import { getSession } from "next-auth/react";
 import { PrismaClient } from "@prisma/client";
 
-export default handler = async (req, res) => {
+const handler = async (req, res) => {
   console.log("🟠 got api call");
 
   const {
@@ -52,3 +52,5 @@ export default handler = async (req, res) => {
     },
   });
 };
+
+export default handler;
