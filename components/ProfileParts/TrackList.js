@@ -7,7 +7,7 @@ const TrackList = (props) => {
   return (
     <div className="w-full pb-20">
       {props.items.map((item, number) => (
-        <div className="grid grid-cols-8 text-left my-2">
+        <div key={number} className="grid grid-cols-8 text-left my-2">
           <div className="col-span-1">{number + 1 + "."} </div>
           <div className="col-span-1">
             <img

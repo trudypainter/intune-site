@@ -5,8 +5,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 const ArtistList = (props) => {
   return (
     <div className="w-full grid grid-cols-2 pb-20">
-      {props.items.map((item) => (
-        <div className="flex my-2 text-left">
+      {props.items.map((item, key) => (
+        <div key={key} className="flex my-2 text-left">
           <div>
             <img
               className="w-8 h-8 mr-2"
