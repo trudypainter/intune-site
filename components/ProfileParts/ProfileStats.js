@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
 import { useSession, signIn, signOut } from "next-auth/react";
 import TrackList from "./TrackList";
 import ArtistList from "./ArtistList";
@@ -9,6 +10,10 @@ const selectedButtonCSS =
 const unSelectedButtonCSS =
   "bg-indigo-100 text-black p-2 rounded-2xl hover:cursor-pointer mx-1";
 
+const server =
+  process.env.NODE_ENV === "production"
+    ? "https://in-tune.vercel.app/"
+    : "http://localhost:3000/";
 const ProfileStats = (props) => {
   const [allInfo, setAllInfo] = useState({});
   const [selectedInfo, setSelectedInfo] = useState([]);
@@ -22,7 +27,9 @@ const ProfileStats = (props) => {
   const [timeRange, setTimeRange] = useState("short_term");
 
   const getRecentSongs = async () => {
-    const res = await fetch("api/listening", {
+    console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
+
+    const res = await fetch(`${server}api/listening`, {
       method: "GET",
       body: JSON.stringify(),
     });
