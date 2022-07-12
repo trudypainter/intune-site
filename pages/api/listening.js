@@ -5,11 +5,12 @@ import { PrismaClient } from "@prisma/client";
 const handler = async (req, res) => {
   console.log("🟠 got api call");
 
-  const {
-    token: { accessToken, email },
-  } = await getSession({ req });
+  //   const {
+  //     token: { accessToken, email },
+  //   } = await getSession({ req });
 
-  console.log("🟠 got session", accessToken);
+  //   console.log("🟠 got session", accessToken);
+
   // parallel promises
 
   //   const shortSongPromise = getUserTopSongs(accessToken, "short_term");
@@ -52,7 +53,7 @@ const handler = async (req, res) => {
   //     },
   //   });
   return res.status(200).json({
-    success: accessToken,
+    success: "success!",
   });
 };
 
