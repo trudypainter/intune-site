@@ -17,7 +17,7 @@ const server =
 
 const ProfileStats = (props) => {
   const allInfo = props.userData.listening;
-  console.log("✅PROFILE STATS", allInfo);
+  // console.log("✅PROFILE STATS", allInfo);
   const [selectedInfo, setSelectedInfo] = useState([]);
 
   const [trackSelected, setTrackSelected] = useState(true);
@@ -27,24 +27,6 @@ const ProfileStats = (props) => {
   const [medSelected, setMedSelected] = useState(false);
   const [longSelected, setLongSelected] = useState(false);
   const [timeRange, setTimeRange] = useState("short_term");
-
-  // const getRecentSongs = async () => {
-  //   console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
-  //   console.log("🟢 email from session: ", props.session.session.user.email);
-
-  //   const res = await fetch(`${server}api/listening`, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       token: props.session.token.accessToken,
-  //       email: props.session.session.user.email,
-  //     }),
-  //   });
-  //   const data = await res.json();
-  //   console.log("🟠 recent songs", data);
-  //   setAllInfo(data);
-
-  //   setSelectedInfo(data["tracks"]["short_term"]);
-  // };
 
   const shortClicked = () => {
     setShortSelected(true);

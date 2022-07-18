@@ -47,7 +47,7 @@ const Profile = () => {
       <div className="w-10/12 mx-auto">
         <ProfileBox session={session} userData={userData} />
         <FriendsList userData={userData} />
-        <ProfileStats session={session} />
+        <ProfileStats session={session} userData={userData} />
       </div>
     </div>
   );

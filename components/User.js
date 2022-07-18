@@ -6,6 +6,7 @@ import ArtistList from "./ProfileParts/ArtistList";
 import ProfileBox from "./ProfileParts/ProfileBox";
 import FriendsList from "./ProfileParts/FriendsLIst";
 import ProfileStats from "./ProfileParts/ProfileStats";
+import UserBox from "./UserBox";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -24,7 +25,7 @@ const User = (props) => {
   console.log(session);
 
   const getUserItem = async () => {
-    console.log("🍇 hitting user");
+    // console.log("🍇 hitting user");
     const res = await fetch(`${server}api/user`, {
       method: "POST",
       body: JSON.stringify({
@@ -32,12 +33,12 @@ const User = (props) => {
       }),
     });
     const userData = await res.json();
-    console.log("🍇 user data", userData);
+    // console.log("🍇 user data", userData);
     setUserData(userData);
   };
 
   useEffect(() => {
-    console.log("🍇 use effect");
+    // console.log("🍇 use effect");
     if (props.slug) {
       console.log("calling user endpotin");
       getUserItem();
@@ -48,7 +49,7 @@ const User = (props) => {
     <div className="w-full">
       {userData !== undefined && (
         <div className="w-10/12 mx-auto">
-          {/* <UserBox session={session} userData={userData} /> */}
+          <UserBox session={session} userData={userData} />
           <FriendsList userData={userData} />
           <ProfileStats session={session} userData={userData} />
         </div>

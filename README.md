@@ -27,3 +27,15 @@ See database updates
 ```
 npx prisma studo
 ```
+
+---
+
+## TODO:
+
+[] when sync clicked for a user NOT signed in, user is prompted to create account
+[] fix initial slug
+[] when a signed in user goes to /[theirname] it should take them to /
+[] qr code on profile
+[] image gradient for when user doesnt have profile photo
+[] update bio / display name
+[] add genres
