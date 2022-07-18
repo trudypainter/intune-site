@@ -8,7 +8,7 @@ const Header = () => {
   return (
     <div className="z-10 w-full flex justify-between p-1 bg-indigo-500 sticky top-0">
       <div className="text-xl text-white m-4 ml-8">
-        <Link href="/">Intune</Link>
+        <Link href="/about">Intune</Link>
       </div>
       <div>
         {!session ? (
@@ -19,9 +19,14 @@ const Header = () => {
             Sign In
           </div>
         ) : (
-          <div className="h-12 w-12 m-2 rounded-full">
-            <img className=" rounded-full" src={session?.token?.picture}></img>{" "}
-          </div>
+          <Link href="/">
+            <div className="h-12 w-12 m-2 rounded-full hover:cursor-pointer">
+              <img
+                className=" rounded-full"
+                src={session?.token?.picture}
+              ></img>{" "}
+            </div>
+          </Link>
         )}
       </div>
     </div>

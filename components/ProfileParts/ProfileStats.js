@@ -14,8 +14,10 @@ const server =
   process.env.NODE_ENV === "production"
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
+
 const ProfileStats = (props) => {
-  const [allInfo, setAllInfo] = useState({});
+  const allInfo = props.userData.listening;
+  console.log("✅PROFILE STATS", allInfo);
   const [selectedInfo, setSelectedInfo] = useState([]);
 
   const [trackSelected, setTrackSelected] = useState(true);
@@ -26,20 +28,23 @@ const ProfileStats = (props) => {
   const [longSelected, setLongSelected] = useState(false);
   const [timeRange, setTimeRange] = useState("short_term");
 
-  const getRecentSongs = async () => {
-    console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
-    console.log(props.session);
+  // const getRecentSongs = async () => {
+  //   console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
+  //   console.log("🟢 email from session: ", props.session.session.user.email);
 
-    const res = await fetch(`${server}api/listening`, {
-      method: "POST",
-      body: JSON.stringify({ token: props.session.token.accessToken }),
-    });
-    const data = await res.json();
-    console.log("🟠 recent songs", data);
-    setAllInfo(data);
+  //   const res = await fetch(`${server}api/listening`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       token: props.session.token.accessToken,
+  //       email: props.session.session.user.email,
+  //     }),
+  //   });
+  //   const data = await res.json();
+  //   console.log("🟠 recent songs", data);
+  //   setAllInfo(data);
 
-    setSelectedInfo(data["tracks"]["short_term"]);
-  };
+  //   setSelectedInfo(data["tracks"]["short_term"]);
+  // };
 
   const shortClicked = () => {
     setShortSelected(true);
@@ -69,9 +74,10 @@ const ProfileStats = (props) => {
   };
 
   useEffect(() => {
-    console.log("🟠 getting recent...");
-    getRecentSongs();
-  }, []);
+    if (props.userData.listening) {
+      setSelectedInfo(props.userData.listening["tracks"]["short_term"]);
+    }
+  }, [props.userData.listening]);
 
   return (
     <div className="mt-10 mx-auto ">

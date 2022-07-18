@@ -1,25 +1,24 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_URL")
-  referentialIntegrity = "prisma"
-}
-
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["referentialIntegrity"]
 }
 
-model Playlist {
-  id           Int @default(autoincrement()) @id
-  title        String
-  image        String?
-  uri          String @unique
-  addedBy      String
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
 }
+
+// model Playlist {
+//   id           Int @default(autoincrement()) @id
+//   title        String
+//   image        String?
+//   uri          String @unique
+//   addedBy      String
+// }
 
 model Account {
   id                 String  @id @default(cuid())
@@ -51,9 +50,12 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String   @unique
   emailVerified DateTime?
   image         String?
+  listening     Json?
+  slug          String? @unique
+
   accounts      Account[]
   sessions      Session[]
 }

@@ -17,7 +17,7 @@ const server =
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
 
-const Profile = () => {
+const User = (props) => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState({});
 
@@ -28,8 +28,7 @@ const Profile = () => {
     const res = await fetch(`${server}api/user`, {
       method: "POST",
       body: JSON.stringify({
-        token: session.token.accessToken,
-        email: session.session.user.email,
+        slug: props.slug,
       }),
     });
     const userData = await res.json();
@@ -39,18 +38,23 @@ const Profile = () => {
 
   useEffect(() => {
     console.log("🍇 use effect");
-    getUserItem();
-  }, []);
+    if (props.slug) {
+      console.log("calling user endpotin");
+      getUserItem();
+    }
+  }, [props.slug]);
 
   return (
     <div className="w-full">
-      <div className="w-10/12 mx-auto">
-        <ProfileBox session={session} userData={userData} />
-        <FriendsList userData={userData} />
-        <ProfileStats session={session} />
-      </div>
+      {userData !== undefined && (
+        <div className="w-10/12 mx-auto">
+          {/* <UserBox session={session} userData={userData} /> */}
+          <FriendsList userData={userData} />
+          <ProfileStats session={session} userData={userData} />
+        </div>
+      )}
     </div>
   );
 };
 
-export default Profile;
+export default User;
