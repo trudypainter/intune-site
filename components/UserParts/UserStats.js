@@ -2,8 +2,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { useSession, signIn, signOut } from "next-auth/react";
-import TrackList from "./TrackList";
-import ArtistList from "./ArtistList";
+import ArtistList from "../ProfileParts/ArtistList";
+import TrackList from "../ProfileParts/TrackList";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-2 rounded-2xl hover:cursor-pointer mx-1";
@@ -15,8 +15,8 @@ const server =
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
 
-const ProfileStats = (props) => {
-  const [allInfo, setAllInfo] = useState({});
+const UserStats = (props) => {
+  const allInfo = props.userData.listening;
   // console.log("✅PROFILE STATS", allInfo);
   const [selectedInfo, setSelectedInfo] = useState([]);
 
@@ -27,22 +27,6 @@ const ProfileStats = (props) => {
   const [medSelected, setMedSelected] = useState(false);
   const [longSelected, setLongSelected] = useState(false);
   const [timeRange, setTimeRange] = useState("short_term");
-
-  const getRecentSongs = async () => {
-    console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
-    console.log("🟢 email from session: ", props.session.session.user.email);
-    const res = await fetch(`${server}api/listening`, {
-      method: "POST",
-      body: JSON.stringify({
-        token: props.session.token.accessToken,
-        email: props.session.session.user.email,
-      }),
-    });
-    const data = await res.json();
-    console.log("🟠 recent songs", data);
-    setAllInfo(data);
-    setSelectedInfo(data["tracks"]["short_term"]);
-  };
 
   const shortClicked = () => {
     setShortSelected(true);
@@ -72,9 +56,10 @@ const ProfileStats = (props) => {
   };
 
   useEffect(() => {
-    console.log("🟠 getting recent...");
-    getRecentSongs();
-  }, []);
+    if (props.userData.listening) {
+      setSelectedInfo(props.userData.listening["tracks"]["short_term"]);
+    }
+  }, [props.userData.listening]);
 
   return (
     <div className="mt-10 mx-auto ">
@@ -143,4 +128,4 @@ const ProfileStats = (props) => {
   );
 };
 
-export default ProfileStats;
+export default UserStats;

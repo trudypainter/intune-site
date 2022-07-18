@@ -5,8 +5,8 @@ import TrackList from "./ProfileParts/TrackList";
 import ArtistList from "./ProfileParts/ArtistList";
 import ProfileBox from "./ProfileParts/ProfileBox";
 import FriendsList from "./ProfileParts/FriendsLIst";
-import ProfileStats from "./ProfileParts/ProfileStats";
-import UserBox from "./UserBox";
+import UserBox from "./UserParts/UserBox";
+import UserStats from "./UserParts/UserStats";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -51,7 +51,7 @@ const User = (props) => {
         <div className="w-10/12 mx-auto">
           <UserBox session={session} userData={userData} />
           <FriendsList userData={userData} />
-          <ProfileStats session={session} userData={userData} />
+          <UserStats userData={userData} />
         </div>
       )}
     </div>
