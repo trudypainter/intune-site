@@ -30,7 +30,11 @@ const FriendsList = (props) => {
       <div className="text-2xl">Friends</div>
       <div className="flex overflow-x-scroll">
         {allSyncs.map((sync) => (
-          <Link className="hover:cursor-pointer" href={"/sync/" + sync.id}>
+          <Link
+            key={sync.id}
+            className="hover:cursor-pointer"
+            href={"/sync/" + sync.id}
+          >
             <div className="text-center hover:cursor-pointer">
               <img className="w-20 h-20 rounded-full" src={sync.image} />
               <div className="w-full m-auto">{sync.slug}</div>
