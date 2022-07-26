@@ -65,6 +65,8 @@ const ProfileBox = (props) => {
     }
   };
 
+  console.log("🇦🇪", props.userData);
+
   return (
     <div className="mt-10 mx-auto grid grid-cols-2">
       <div className=" ">

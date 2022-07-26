@@ -9,12 +9,6 @@ function onlyLettersAndNumbers(str) {
 }
 
 const handler = async (req, res) => {
-  console.log("🟠 got slug call");
-
-  //   const {
-  //     token: { accessToken, email },
-  //   } = await getSession({ req });
-
   const bodyJSON = JSON.parse(req.body);
   const reqEmail = bodyJSON["email"];
   const newSlug = bodyJSON["slug"];
@@ -25,7 +19,7 @@ const handler = async (req, res) => {
       .json({ failure: "Username can only be letters and numbers." });
   }
 
-  // add to user's listening json
+  // update user slug
   let userPrisma = await prisma.user
     .update({
       where: {
@@ -39,8 +33,6 @@ const handler = async (req, res) => {
       console.log(err);
       return res.status(403).json({ failure: "Username taken." });
     });
-
-  console.log("💕 updating slug: ", userPrisma);
 
   // return user
   res.status(200).json(userPrisma);

@@ -39,3 +39,4 @@ npx prisma studo
 [] image gradient for when user doesnt have profile photo
 [] update bio / display name
 [] add genres
+[] implement some sort of /absolute/userid to have unchanging routes (for qr codes to stay static)

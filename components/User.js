@@ -25,7 +25,6 @@ const User = (props) => {
   console.log(session);
 
   const getUserItem = async () => {
-    // console.log("🍇 hitting user");
     const res = await fetch(`${server}api/user`, {
       method: "POST",
       body: JSON.stringify({
@@ -33,29 +32,35 @@ const User = (props) => {
       }),
     });
     const userData = await res.json();
-    // console.log("🍇 user data", userData);
+    console.log("😀 USER DATA", userData);
     setUserData(userData);
   };
 
   useEffect(() => {
     // console.log("🍇 use effect");
     if (props.slug) {
-      console.log("calling user endpotin");
+      console.log("calling user endpoint");
       getUserItem();
     }
   }, [props.slug]);
 
-  return (
-    <div className="w-full">
-      {userData !== undefined && (
-        <div className="w-10/12 mx-auto">
-          <UserBox session={session} userData={userData} />
-          <FriendsList userData={userData} />
-          <UserStats userData={userData} />
+  if (session) {
+    if (userData.email === session.session.user.email) {
+      window.open("/", "_self");
+    } else {
+      return (
+        <div className="w-full">
+          {userData !== {} && (
+            <div className="w-10/12 mx-auto">
+              <UserBox session={session} userData={userData} />
+              <FriendsList userData={userData} />
+              <UserStats userData={userData} />
+            </div>
+          )}
         </div>
-      )}
-    </div>
-  );
+      );
+    }
+  }
 };
 
 export default User;

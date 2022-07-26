@@ -10,46 +10,37 @@ const server =
     : "http://localhost:3000/";
 
 const UserBox = (props) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [status, setStatus] = useState("");
-  // const [slug, setSlug] = useState(props.userData.slug);
-  console.log("⭐️ slug", props.userData.slug);
+  const makeSyncLoggedIn = async () => {
+    // set loading page
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = "#f00";
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  const updateSlug = async (newSlug) => {
-    setStatus("Checking...");
-    console.log("🔵", newSlug);
-    const res = await fetch(`${server}api/updateSlug`, {
+    console.log("🔵 making new sync request");
+    const res = await fetch(`${server}api/sync`, {
       method: "POST",
       body: JSON.stringify({
-        slug: newSlug,
-        email: props.session.session.user.email,
+        requester: props.session.session.user,
+        receiver: props.userData.email,
       }),
     });
     const data = await res.json();
-    console.log("🟠 slug response", data);
-
-    if (data.failure) {
-      setStatus(data.failure);
-    } else {
-      setStatus("");
-      setIsOpen(false);
-      document.getElementById("slug-label").innerHTML =
-        "in-tune.app/" + newSlug;
-    }
+    console.log("🟡 sync response", data);
+    // redirect to new sync page
   };
+
+  let syncedWith = undefined;
+  console.log(props.session);
+  if (props.session.session && props.userData.syncReceived) {
+    for (let sync of props.userData.syncReceived) {
+      if (sync.requester.email === props.session.session.user.email) {
+        syncedWith = sync;
+      }
+    }
+    for (let sync of props.userData.syncRequested) {
+      if (sync.receiver.email === props.session.session.user.email) {
+        syncedWith = sync;
+      }
+    }
+  }
+  console.log("🏁 SYNCHED WIHT", syncedWith);
 
   return (
     <div className="mt-10 mx-auto grid grid-cols-2">
@@ -64,9 +55,20 @@ const UserBox = (props) => {
         </div>
 
         <div className="pt-8 flex justify-center space-x-4">
-          <div className="text-3xl mt-4 p-8 rounded-md bg-indigo-500 text-white hover:cursor-pointer">
-            SYNC
-          </div>
+          {syncedWith === undefined ? (
+            <div
+              onClick={() => makeSyncLoggedIn()}
+              className="text-3xl mt-4 p-8 rounded-md bg-indigo-500 text-white hover:cursor-pointer"
+            >
+              SYNC
+            </div>
+          ) : (
+            <Link href={"/sync/" + syncedWith.id}>
+              <div className="text-3xl mt-4 p-8 rounded-md bg-indigo-100 text-black hover:cursor-pointer">
+                View Sync
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </div>

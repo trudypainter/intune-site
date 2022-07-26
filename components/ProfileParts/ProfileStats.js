@@ -16,9 +16,11 @@ const server =
     : "http://localhost:3000/";
 
 const ProfileStats = (props) => {
-  const [allInfo, setAllInfo] = useState({});
+  const [allInfo, setAllInfo] = useState(props.userData.listening);
   // console.log("✅PROFILE STATS", allInfo);
-  const [selectedInfo, setSelectedInfo] = useState([]);
+  const [selectedInfo, setSelectedInfo] = useState(
+    props.userData.listening.tracks["short_term"]
+  );
 
   const [trackSelected, setTrackSelected] = useState(true);
   const [dataType, setDataType] = useState("tracks");
@@ -27,22 +29,6 @@ const ProfileStats = (props) => {
   const [medSelected, setMedSelected] = useState(false);
   const [longSelected, setLongSelected] = useState(false);
   const [timeRange, setTimeRange] = useState("short_term");
-
-  const getRecentSongs = async () => {
-    console.log("😁 trying to get recent songs ", process.env.NODE_ENV);
-    console.log("🟢 email from session: ", props.session.session.user.email);
-    const res = await fetch(`${server}api/listening`, {
-      method: "POST",
-      body: JSON.stringify({
-        token: props.session.token.accessToken,
-        email: props.session.session.user.email,
-      }),
-    });
-    const data = await res.json();
-    console.log("🟠 recent songs", data);
-    setAllInfo(data);
-    setSelectedInfo(data["tracks"]["short_term"]);
-  };
 
   const shortClicked = () => {
     setShortSelected(true);
@@ -70,11 +56,6 @@ const ProfileStats = (props) => {
 
     setSelectedInfo(allInfo[dataType]["long_term"]);
   };
-
-  useEffect(() => {
-    console.log("🟠 getting recent...");
-    getRecentSongs();
-  }, []);
 
   return (
     <div className="mt-10 mx-auto ">

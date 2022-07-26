@@ -12,14 +12,6 @@ datasource db {
   referentialIntegrity = "prisma"
 }
 
-// model Playlist {
-//   id           Int @default(autoincrement()) @id
-//   title        String
-//   image        String?
-//   uri          String @unique
-//   addedBy      String
-// }
-
 model Account {
   id                 String  @id @default(cuid())
   userId             String
@@ -47,17 +39,39 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+
+
 model User {
   id            String    @id @default(cuid())
   name          String?
   email         String   @unique
   emailVerified DateTime?
-  image         String?
+  image         String? @default("https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg")
   listening     Json?
-  slug          String? @unique
+  slug          String @unique @default(cuid())
 
   accounts      Account[]
   sessions      Session[]
+
+  syncRequested Sync[] @relation("requester")
+  syncReceived  Sync[] @relation("receiver")
+}
+
+model Sync {
+  id                    String    @id @default(cuid())
+  compatibility         Int       @default(0)
+
+  requester             User      @relation("requester", fields: [requesterEmail], references: [email])
+  requesterEmail        String
+
+  receiver              User      @relation("receiver", fields: [receiverEmail], references: [email])
+  receiverEmail         String 
+
+  sharedArtists         Json
+  sharedTracks          Json
+
+  createdAt             DateTime  @default(now())
+
 }
 
 model VerificationToken {

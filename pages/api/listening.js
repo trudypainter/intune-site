@@ -4,31 +4,70 @@ import { Prisma, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const parseSongs = (songJson) => {
+  let longItems = songJson.items;
+  let newItems = [];
+
+  for (let item of longItems) {
+    let shortenedItem = {
+      image: item["album"]["images"]["0"]["url"],
+      title: item["name"],
+      artist: item["artists"][0]["name"],
+      album: item["album"]["name"],
+    };
+
+    newItems = [...newItems, shortenedItem];
+  }
+  return newItems;
+};
+
+const parseArtists = (songJson) => {
+  let longItems = songJson.items;
+  let newItems = [];
+
+  for (let item of longItems) {
+    let shortenedItem = {
+      image: item["images"]["0"]["url"],
+      name: item["name"],
+      genres: item["genres"],
+    };
+
+    newItems = [...newItems, shortenedItem];
+  }
+  return newItems;
+};
+
 const handler = async (req, res) => {
-  // console.log("🟠 got api call");
-
-  //   const {
-  //     token: { accessToken, email },
-  //   } = await getSession({ req });
-
   const bodyJSON = JSON.parse(req.body);
   const accessToken = bodyJSON["token"];
   const reqEmail = bodyJSON["email"];
 
-  // console.log("🟠 got access token", accessToken);
-  // console.log("🟠 got email ", reqEmail);
+  console.log(reqEmail);
 
   // add to user's listening json
   let userPrisma = await prisma.user.findUnique({
     where: {
       email: reqEmail,
     },
+    include: {
+      syncReceived: {
+        include: {
+          receiver: true,
+          requester: true,
+        },
+      },
+      syncRequested: {
+        include: {
+          receiver: true,
+          requester: true,
+        },
+      },
+    },
   });
-  console.log(" ⭐️", userPrisma);
 
-  if (userPrisma && userPrisma.listening) {
+  if (userPrisma.listening) {
     // return user listening data
-    res.status(200).json(userPrisma.listening);
+    res.status(200).json(userPrisma);
   }
   //   parallel promises
   const shortSongPromise = getUserTopSongs(accessToken, "short_term");
@@ -57,17 +96,20 @@ const handler = async (req, res) => {
   const mediumArtistJSON = await mediumArtistResponse.json();
   const longArtistJSON = await longArtistResponse.json();
 
+  // only save relevant listening data
+  // album cover, song name, artist name, album
+
   // create json of listeing data
   const listeningDict = {
     artists: {
-      short_term: shortArtistJSON["items"],
-      medium_term: mediumArtistJSON["items"],
-      long_term: longArtistJSON["items"],
+      short_term: parseArtists(shortArtistJSON),
+      medium_term: parseArtists(mediumArtistJSON),
+      long_term: parseArtists(longArtistJSON),
     },
     tracks: {
-      short_term: shortSongJSON["items"],
-      medium_term: mediumSongJSON["items"],
-      long_term: longSongJSON["items"],
+      short_term: parseSongs(shortSongJSON),
+      medium_term: parseSongs(mediumSongJSON),
+      long_term: parseSongs(longSongJSON),
     },
   };
 

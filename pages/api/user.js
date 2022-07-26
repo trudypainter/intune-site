@@ -8,6 +8,10 @@ const emailPassed = async (res, email) => {
     where: {
       email: email,
     },
+    include: {
+      syncReceived: true,
+      syncRequested: true,
+    },
   });
 
   console.log("found ", user, " for email ", email);
@@ -32,6 +36,20 @@ const slugPassed = async (res, slug) => {
     where: {
       slug: slug,
     },
+    include: {
+      syncReceived: {
+        include: {
+          receiver: true,
+          requester: true,
+        },
+      },
+      syncRequested: {
+        include: {
+          receiver: true,
+          requester: true,
+        },
+      },
+    },
   });
 
   if (user) {
@@ -42,12 +60,8 @@ const slugPassed = async (res, slug) => {
 
 const handler = async (req, res) => {
   const bodyJSON = JSON.parse(req.body);
-  const accessToken = bodyJSON["token"];
   const reqEmail = bodyJSON["email"];
   const slug = bodyJSON["slug"];
-
-  console.log("🟠 GOT SLUG", slug);
-  console.log("🟠 GOT reqEmail", reqEmail);
 
   if (slug) {
     slugPassed(res, slug);

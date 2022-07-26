@@ -25,7 +25,7 @@ const Profile = () => {
 
   const getUserItem = async () => {
     console.log("🍇 hitting user");
-    const res = await fetch(`${server}api/user`, {
+    const res = await fetch(`${server}api/listening`, {
       method: "POST",
       body: JSON.stringify({
         token: session.token.accessToken,
@@ -47,7 +47,9 @@ const Profile = () => {
       <div className="w-10/12 mx-auto">
         <ProfileBox session={session} userData={userData} />
         <FriendsList userData={userData} />
-        <ProfileStats session={session} userData={userData} />
+        {userData.listening && (
+          <ProfileStats session={session} userData={userData} />
+        )}
       </div>
     </div>
   );
