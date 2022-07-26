@@ -7,6 +7,7 @@ import ProfileBox from "./ProfileParts/ProfileBox";
 import FriendsList from "./ProfileParts/FriendsLIst";
 import UserBox from "./UserParts/UserBox";
 import UserStats from "./UserParts/UserStats";
+import Loading from "./ProfileParts/Loading";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -21,6 +22,7 @@ const server =
 const User = (props) => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   console.log(session);
 
@@ -34,6 +36,7 @@ const User = (props) => {
     const userData = await res.json();
     console.log("😀 USER DATA", userData);
     setUserData(userData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,22 +47,25 @@ const User = (props) => {
     }
   }, [props.slug]);
 
-  if (session) {
-    if (userData.email === session.session.user.email) {
-      window.open("/", "_self");
-    } else {
-      return (
-        <div className="w-full">
-          {userData !== {} && (
-            <div className="w-10/12 mx-auto">
-              <UserBox session={session} userData={userData} />
-              <FriendsList userData={userData} />
-              <UserStats userData={userData} />
-            </div>
-          )}
-        </div>
-      );
+  if (loading) {
+    return <Loading />;
+  } else {
+    if (session) {
+      if (userData.email === session.session.user.email) {
+        window.open("/", "_self");
+      }
     }
+    return (
+      <div className="w-full">
+        {userData !== {} && (
+          <div className="w-10/12 mx-auto">
+            <UserBox session={session} userData={userData} />
+            <FriendsList userData={userData} />
+            <UserStats userData={userData} />
+          </div>
+        )}
+      </div>
+    );
   }
 };
 

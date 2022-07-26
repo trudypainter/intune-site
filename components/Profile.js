@@ -6,6 +6,7 @@ import ArtistList from "./ProfileParts/ArtistList";
 import ProfileBox from "./ProfileParts/ProfileBox";
 import FriendsList from "./ProfileParts/FriendsLIst";
 import ProfileStats from "./ProfileParts/ProfileStats";
+import Loading from "./ProfileParts/Loading";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -20,6 +21,7 @@ const server =
 const Profile = () => {
   const { data: session } = useSession();
   const [userData, setUserData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   console.log(session);
 
@@ -35,6 +37,7 @@ const Profile = () => {
     const userData = await res.json();
     console.log("🍇 user data", userData);
     setUserData(userData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -42,17 +45,21 @@ const Profile = () => {
     getUserItem();
   }, []);
 
-  return (
-    <div className="w-full">
-      <div className="w-10/12 mx-auto">
-        <ProfileBox session={session} userData={userData} />
-        <FriendsList userData={userData} />
-        {userData.listening && (
-          <ProfileStats session={session} userData={userData} />
-        )}
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <div className="w-full">
+        <div className="w-10/12 mx-auto">
+          <ProfileBox session={session} userData={userData} />
+          <FriendsList userData={userData} />
+          {userData.listening && (
+            <ProfileStats session={session} userData={userData} />
+          )}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Profile;

@@ -28,7 +28,7 @@ const UserBox = (props) => {
 
   let syncedWith = undefined;
   console.log(props.session);
-  if (props.session.session && props.userData.syncReceived) {
+  if (props.session && props.userData.syncReceived) {
     for (let sync of props.userData.syncReceived) {
       if (sync.requester.email === props.session.session.user.email) {
         syncedWith = sync;

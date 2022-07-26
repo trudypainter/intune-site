@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Compatibility from "./SyncParts/Compatibility";
 import SharedArtists from "./SyncParts/SharedArtists";
 import SharedTracks from "./SyncParts/SharedTracks";
+import Loading from "./ProfileParts/Loading";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -18,6 +19,7 @@ const server =
 const Sync = (props) => {
   const { data: session } = useSession();
   const [syncData, setSyncData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   console.log(session);
 
@@ -29,6 +31,7 @@ const Sync = (props) => {
     const syncData = await res.json();
     console.log("🟢 sync DATA", syncData);
     setSyncData(syncData);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -37,15 +40,19 @@ const Sync = (props) => {
     }
   }, [props.id]);
 
-  return (
-    <div className="w-full">
-      <div className="w-10/12 mx-auto">
-        <Compatibility syncData={syncData} />
-        <SharedArtists syncData={syncData} />
-        <SharedTracks syncData={syncData} />
+  if (loading) {
+    return <Loading />;
+  } else {
+    return (
+      <div className="w-full">
+        <div className="w-10/12 mx-auto">
+          <Compatibility syncData={syncData} />
+          <SharedArtists syncData={syncData} />
+          <SharedTracks syncData={syncData} />
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default Sync;
