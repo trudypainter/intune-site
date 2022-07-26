@@ -59,7 +59,11 @@ const User = (props) => {
       <div className="w-full">
         {userData !== {} && (
           <div className="w-10/12 mx-auto">
-            <UserBox session={session} userData={userData} />
+            <UserBox
+              setLoading={setLoading}
+              session={session}
+              userData={userData}
+            />
             <FriendsList userData={userData} />
             <UserStats userData={userData} />
           </div>

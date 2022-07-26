@@ -12,7 +12,7 @@ const server =
 const UserBox = (props) => {
   const makeSyncLoggedIn = async () => {
     // set loading page
-
+    props.setLoading(true);
     console.log("🔵 making new sync request");
     const res = await fetch(`${server}api/sync`, {
       method: "POST",
@@ -24,6 +24,7 @@ const UserBox = (props) => {
     const data = await res.json();
     console.log("🟡 sync response", data);
     // redirect to new sync page
+    window.open("/sync/" + data.id, "_self");
   };
 
   let syncedWith = undefined;

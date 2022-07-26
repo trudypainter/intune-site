@@ -190,7 +190,7 @@ const newSync = async (res, reqSession, receiverEmail) => {
   });
 
   console.log("⭐️ CREATED NEW SYNC OBJ", syncObj);
-  res.status(200).json({ sync: syncItem });
+  res.status(200).json(syncObj);
 };
 
 const handler = async (req, res) => {

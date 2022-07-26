@@ -113,13 +113,8 @@ const handler = async (req, res) => {
     },
   };
 
-  if (!userPrisma || !userPrisma.listening) {
-    // return user listening data
-    res.status(200).json(listeningDict);
-  }
-
   // add to user's listening json
-  userPrisma = await prisma.user.update({
+  let userPrismaUpdate = await prisma.user.update({
     where: {
       email: reqEmail,
     },
@@ -127,7 +122,13 @@ const handler = async (req, res) => {
       listening: listeningDict,
     },
   });
-  console.log(" ⭐️ updated ", userPrisma);
+
+  if (!userPrisma || !userPrisma.listening) {
+    // return user listening data
+    res.status(200).json(userPrismaUpdate);
+  }
+
+  console.log(" ⭐️ updated ", userPrismaUpdate);
 };
 
 export default handler;
