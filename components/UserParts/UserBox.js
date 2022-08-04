@@ -103,7 +103,15 @@ const UserBox = (props) => {
           >
             Spotify
           </Link>
-          <button>Share</button>
+          <RWebShare
+            data={{
+              text: "Check out this InTune profile.",
+              url: server + props.userData.slug,
+              title: "InTune",
+            }}
+          >
+            <button>Share</button>
+          </RWebShare>
           <button onClick={openQr}>QR Code</button>
         </div>
       </div>
