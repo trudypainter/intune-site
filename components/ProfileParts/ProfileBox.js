@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import TrackList from "./TrackList";
 import ArtistList from "./ArtistList";
 import User from "../User";
+import Image from "next/image";
 
 import Modal from "react-modal";
 import QRCode from "react-qr-code";
@@ -88,15 +89,34 @@ const ProfileBox = (props) => {
         </div>
 
         <div className="pt-8 flex justify-center space-x-4">
-          <button onClick={() => signOut()}>Sign out</button>
-          <button onClick={openModal}>Settings</button>
+          <button onClick={() => signOut()}>
+            <Image
+              width="36px"
+              height="36px"
+              layout="fixed"
+              src="/assets/exit.png"
+            />
+          </button>
+          <button onClick={openModal}>
+            <Image
+              width="36px"
+              height="36px"
+              layout="fixed"
+              src="/assets/settings.png"
+            />
+          </button>
         </div>
 
         <div className="pt-8 flex justify-center space-x-4">
           <Link
             href={"https://open.spotify.com/user/" + props.userData.accounts}
           >
-            Spotify
+            <Image
+              width="36px"
+              height="36px"
+              layout="fixed"
+              src="/assets/spotify.png"
+            />
           </Link>
           <RWebShare
             data={{
@@ -105,9 +125,15 @@ const ProfileBox = (props) => {
               title: "InTune",
             }}
           >
-            <button>Share</button>
+            <button>
+              {" "}
+              <Image width="38px" height="36px" src="/assets/share.png" />
+            </button>
           </RWebShare>
-          <button onClick={openQr}>QR Code</button>
+          <button onClick={openQr}>
+            {" "}
+            <Image width="36px" height="36px" src="/assets/qr.png" />
+          </button>
         </div>
       </div>
 

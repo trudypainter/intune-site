@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 
 import Modal from "react-modal";
 import QRCode from "react-qr-code";
+import { RWebShare } from "react-web-share";
 
 const server =
   process.env.NODE_ENV === "production"
@@ -101,7 +103,12 @@ const UserBox = (props) => {
           <Link
             href={"https://open.spotify.com/user/" + props.userData.accounts}
           >
-            Spotify
+            <Image
+              width="36px"
+              height="36px"
+              layout="fixed"
+              src="/assets/spotify.png"
+            />
           </Link>
           <RWebShare
             data={{
@@ -110,9 +117,15 @@ const UserBox = (props) => {
               title: "InTune",
             }}
           >
-            <button>Share</button>
+            <button>
+              {" "}
+              <Image width="38px" height="36px" src="/assets/share.png" />
+            </button>
           </RWebShare>
-          <button onClick={openQr}>QR Code</button>
+          <button onClick={openQr}>
+            {" "}
+            <Image width="36px" height="36px" src="/assets/qr.png" />
+          </button>
         </div>
       </div>
 
