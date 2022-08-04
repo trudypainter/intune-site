@@ -70,7 +70,11 @@ const ProfileBox = (props) => {
   return (
     <div className="mt-10 mx-auto grid grid-cols-2">
       <div className=" ">
-        <img className="rounded-full" src={props.session?.token?.picture}></img>{" "}
+        <img
+          className="rounded-full object-cover"
+          style={{ width: "40vw", height: "40vw" }}
+          src={props.session?.token?.picture}
+        ></img>{" "}
       </div>
       <div className="text-center ">
         <div className="p-2 text-2xl">{props.session?.token?.name}</div>

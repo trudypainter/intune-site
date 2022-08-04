@@ -32,11 +32,14 @@ const FriendsList = (props) => {
         {allSyncs.map((sync) => (
           <Link
             key={sync.id}
-            className="hover:cursor-pointer"
+            className="hover:cursor-pointer "
             href={"/sync/" + sync.id}
           >
-            <div className="text-center hover:cursor-pointer">
-              <img className="w-20 h-20 rounded-full" src={sync.image} />
+            <div className="text-center hover:cursor-pointer px-2">
+              <img
+                className="w-20 h-20 rounded-full object-cover"
+                src={sync.image}
+              />
               <div className="w-full m-auto">{sync.slug}</div>
               <div className="w-full m-auto">{sync.compatibility}</div>
             </div>

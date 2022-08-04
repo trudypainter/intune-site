@@ -9,11 +9,12 @@ const Compatibility = (props) => {
   if (props.syncData.requester) {
     return (
       <div className="w-full">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 mt-8">
           <Link href={"/" + props.syncData.requester.slug}>
             <div className="w-50% hover:cursor-pointer text-2xl text-center">
               <img
-                className="w-11/12 h-11/12 m-auto rounded-full pt-4"
+                className="m-auto rounded-full object-cover"
+                style={{ width: "40vw", height: "40vw" }}
                 src={props.syncData.requester.image}
               ></img>
               <div className="pt-4">{props.syncData.requester.slug}</div>
@@ -22,7 +23,8 @@ const Compatibility = (props) => {
           <Link href={"/" + props.syncData.receiver.slug}>
             <div className="w-50% hover:cursor-pointer text-2xl text-center">
               <img
-                className="w-11/12 h-11/12 m-auto rounded-full pt-4"
+                className="m-auto rounded-full object-cover"
+                style={{ width: "40vw", height: "40vw" }}
                 src={props.syncData.receiver.image}
               ></img>
               <div className="pt-4">{props.syncData.receiver.slug}</div>
@@ -30,7 +32,8 @@ const Compatibility = (props) => {
           </Link>
         </div>
         <div className="p-12 text-4xl w-full text-center">
-          {props.syncData.compatibility}
+          {props.syncData.compatibility}%<br></br>
+          compatible
         </div>
       </div>
     );
