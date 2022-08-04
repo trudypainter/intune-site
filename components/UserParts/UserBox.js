@@ -3,13 +3,34 @@ import { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
 import Modal from "react-modal";
+import QRCode from "react-qr-code";
 
 const server =
   process.env.NODE_ENV === "production"
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
 
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
 const UserBox = (props) => {
+  const [qrIsOpen, setQrOpen] = useState(false);
+
+  function openQr() {
+    setQrOpen(true);
+  }
+  function closeQr() {
+    setQrOpen(false);
+  }
+
   const makeSyncLoggedIn = async () => {
     // set loading page
     props.setLoading(true);
@@ -75,7 +96,23 @@ const UserBox = (props) => {
             </Link>
           )}
         </div>
+
+        <div className="pt-8 flex justify-center space-x-4">
+          <Link
+            href={"https://open.spotify.com/user/" + props.userData.accounts}
+          >
+            Spotify
+          </Link>
+          <button>Share</button>
+          <button onClick={openQr}>QR Code</button>
+        </div>
       </div>
+
+      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={customStyles}>
+        <div style={{ background: "white", padding: "16px" }}>
+          <QRCode value={server + "qr/" + props.userData.id} />
+        </div>
+      </Modal>
     </div>
   );
 };

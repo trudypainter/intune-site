@@ -6,6 +6,8 @@ import ArtistList from "./ArtistList";
 import User from "../User";
 
 import Modal from "react-modal";
+import QRCode from "react-qr-code";
+import { RWebShare } from "react-web-share";
 
 const server =
   process.env.NODE_ENV === "production"
@@ -25,6 +27,9 @@ const customStyles = {
 
 const ProfileBox = (props) => {
   const [modalIsOpen, setIsOpen] = useState(false);
+
+  const [qrIsOpen, setQrOpen] = useState(false);
+
   const [status, setStatus] = useState("");
   // const [slug, setSlug] = useState(props.userData.slug);
   console.log("⭐️ slug", props.userData.slug);
@@ -32,14 +37,15 @@ const ProfileBox = (props) => {
   function openModal() {
     setIsOpen(true);
   }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = "#f00";
-  }
-
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function openQr() {
+    setQrOpen(true);
+  }
+  function closeQr() {
+    setQrOpen(false);
   }
 
   const updateSlug = async (newSlug) => {
@@ -65,8 +71,6 @@ const ProfileBox = (props) => {
     }
   };
 
-  console.log("🇦🇪", props.userData);
-
   return (
     <div className="mt-10 mx-auto grid grid-cols-2">
       <div className=" ">
@@ -85,43 +89,65 @@ const ProfileBox = (props) => {
 
         <div className="pt-8 flex justify-center space-x-4">
           <button onClick={() => signOut()}>Sign out</button>
-
           <button onClick={openModal}>Settings</button>
-          <Modal
-            isOpen={modalIsOpen}
-            onAfterOpen={afterOpenModal}
-            onRequestClose={closeModal}
-            style={customStyles}
-            contentLabel="Example Modal"
-          >
-            <div className="w-96">
-              <label className="mt-4">Username</label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-              />
+        </div>
 
-              <div className="w-full grid grid-cols-2 text-center">
-                <button className="p-2 m-2" onClick={closeModal}>
-                  Back
-                </button>
-                <button
-                  className="p-2 m-2 rounded-md text-white bg-indigo-500"
-                  onClick={() =>
-                    updateSlug(document.getElementById("username").value)
-                  }
-                >
-                  Update
-                </button>
-              </div>
-              <div className="w-full text-center" id="status">
-                {status}
-              </div>
-            </div>
-          </Modal>
+        <div className="pt-8 flex justify-center space-x-4">
+          <Link
+            href={"https://open.spotify.com/user/" + props.userData.accounts}
+          >
+            Spotify
+          </Link>
+          <RWebShare
+            data={{
+              text: "Check out this InTune profile.",
+              url: server + props.userData.slug,
+              title: "InTune",
+            }}
+          >
+            <button>Share</button>
+          </RWebShare>
+          <button onClick={openQr}>QR Code</button>
         </div>
       </div>
+
+      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={customStyles}>
+        <div style={{ background: "white", padding: "16px" }}>
+          <QRCode value={server + "qr/" + props.userData.id} />
+        </div>
+      </Modal>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+      >
+        <div className="w-96">
+          <label className="mt-4">Username</label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="username"
+            type="text"
+          />
+
+          <div className="w-full grid grid-cols-2 text-center">
+            <button className="p-2 m-2" onClick={closeModal}>
+              Back
+            </button>
+            <button
+              className="p-2 m-2 rounded-md text-white bg-indigo-500"
+              onClick={() =>
+                updateSlug(document.getElementById("username").value)
+              }
+            >
+              Update
+            </button>
+          </div>
+          <div className="w-full text-center" id="status">
+            {status}
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -62,11 +62,17 @@ const handler = async (req, res) => {
           requester: true,
         },
       },
+      accounts: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
 
   if (userPrisma.listening) {
     // return user listening data
+    userPrisma.accounts = userPrisma.accounts[0]["providerAccountId"];
     res.status(200).json(userPrisma);
   }
   //   parallel promises
