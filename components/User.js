@@ -48,32 +48,16 @@ const User = (props) => {
     }
   }, [props.slug]);
 
-  // if (loading) {
-  //   return <Loading />;
-  // } else {
-  //   if (session) {
-  //     if (userData.email === session.session.user.email) {
-  //       window.open("/", "_self");
-  //     }
-  //   }
-  //   return (
-  //     <div className="w-full">
-  //       <UserBox
-  //         setLoading={setLoading}
-  //         session={session}
-  //         userData={userData}
-  //       />
-  //       <FriendsList userData={userData} />
-  //       <UserStats userData={userData} />
-  //     </div>
-  //   );
-  // }
   if (loading) {
     return <Loading />;
   } else {
     return (
       <div className="w-full">
-        <UserBox session={session} userData={userData} />
+        <UserBox
+          session={session}
+          userData={userData}
+          setLoading={setLoading}
+        />
         <FriendsList userData={userData} />
         {userData.listening && (
           <ProfileStats session={session} userData={userData} />

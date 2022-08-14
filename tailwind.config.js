@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -11,7 +12,7 @@ module.exports = {
       white: "white",
     },
     fontFamily: {
-      sans: ["Arial"],
+      sans: ["Arial Narrow"],
     },
   },
   plugins: [],

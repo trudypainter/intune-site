@@ -7,8 +7,11 @@ const Landing = () => {
   return (
     <div className="w-full">
       {/* SPINNER */}
-      <div className="w-10/12 text-center  mx-auto pt-20">In Tune </div>
-      <div onClick={() => signIn()} className="w-24 mx-auto text-center">
+      <div className="w-10/12 text-center  mx-auto pt-12">In Tune </div>
+      <div
+        onClick={() => signIn()}
+        className="w-24 mx-auto text-center bg-black text-white mb-12"
+      >
         Sign In
       </div>
       {/* MIDDLE */}
