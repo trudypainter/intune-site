@@ -7,12 +7,14 @@ const SharedArtists = (props) => {
   // console.log("⭐️TRACK LIST", props.items);
 
   if (props.syncData.sharedArtists) {
-    return (
-      <div className="w-full">
-        <div className="text-2xl py-8">Shared Artists</div>
-        <ArtistList items={props.syncData.sharedArtists.items} />
-      </div>
-    );
+    if (props.syncData.sharedArtists.items.length > 0) {
+      return (
+        <div className="w-full">
+          <div className="text-2xl pt-4 pb-1">Shared Artists</div>
+          <ArtistList items={props.syncData.sharedArtists.items} />
+        </div>
+      );
+    }
   }
 };
 

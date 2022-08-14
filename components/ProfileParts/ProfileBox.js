@@ -10,10 +10,27 @@ import Modal from "react-modal";
 import QRCode from "react-qr-code";
 import { RWebShare } from "react-web-share";
 
+const icon_size = "42px";
+
 const server =
   process.env.NODE_ENV === "production"
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
+
+const qrStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#4AFE2C",
+    textAlign: "center",
+    border: "2px solid black",
+    borderRadius: "0px",
+  },
+};
 
 const customStyles = {
   content: {
@@ -23,6 +40,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "2px solid black",
+    borderRadius: "0px",
   },
 };
 
@@ -73,47 +92,46 @@ const ProfileBox = (props) => {
   };
 
   return (
-    <div className="mt-10 mx-auto grid grid-cols-2">
-      <div className=" ">
+    <div className="pt-4 mx-auto grid grid-cols-2">
+      <div className="w-full ">
         <img
-          className="rounded-full object-cover"
-          style={{ width: "40vw", height: "40vw" }}
+          className="rounded-full object-cover w-[160px] h-[160px] mx-auto"
           src={props.session?.token?.picture}
         ></img>{" "}
       </div>
-      <div className="text-center ">
-        <div className="p-2 text-2xl">{props.session?.token?.name}</div>
+      <div className="text-left text-xs ">
+        <div className="px-1">{props.session?.token?.name}</div>
 
-        <div id="slug-label" className="text-xl">
-          in-tune.app/{props.userData.slug}
+        <div id="slug-label" className=" px-1 ">
+          @{props.userData.slug}
         </div>
 
-        <div className="pt-8 flex justify-center space-x-4">
+        <div className=" flex justify-center space-x-2 mt-1">
           <button onClick={() => signOut()}>
             <Image
-              width="36px"
-              height="36px"
+              width={icon_size}
+              height={icon_size}
               layout="fixed"
               src="/assets/exit.png"
             />
           </button>
           <button onClick={openModal}>
             <Image
-              width="36px"
-              height="36px"
+              width={icon_size}
+              height={icon_size}
               layout="fixed"
               src="/assets/settings.png"
             />
           </button>
         </div>
 
-        <div className="pt-8 flex justify-center space-x-4">
+        <div className=" flex justify-center space-x-2 ">
           <Link
             href={"https://open.spotify.com/user/" + props.userData.accounts}
           >
             <Image
-              width="36px"
-              height="36px"
+              width={icon_size}
+              height={icon_size}
               layout="fixed"
               src="/assets/spotify.png"
             />
@@ -127,20 +145,29 @@ const ProfileBox = (props) => {
           >
             <button>
               {" "}
-              <Image width="38px" height="36px" src="/assets/share.png" />
+              <Image
+                width={icon_size}
+                height={icon_size}
+                src="/assets/share.png"
+              />
             </button>
           </RWebShare>
           <button onClick={openQr}>
             {" "}
-            <Image width="36px" height="36px" src="/assets/qr.png" />
+            <Image width={icon_size} height={icon_size} src="/assets/qr.png" />
           </button>
         </div>
       </div>
 
-      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={customStyles}>
-        <div style={{ background: "white", padding: "16px" }}>
-          <QRCode value={server + "qr/" + props.userData.id} />
+      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={qrStyles}>
+        SCAN TO SYNC
+        <div style={{ background: "black", padding: "16px" }}>
+          <QRCode
+            bgColor="#4AFE2C"
+            value={server + "qr/" + props.userData.id}
+          />
         </div>
+        in-tune.app/{props.userData.slug}
       </Modal>
 
       <Modal
@@ -148,20 +175,20 @@ const ProfileBox = (props) => {
         onRequestClose={closeModal}
         style={customStyles}
       >
-        <div className="w-96">
-          <label className="mt-4">Username</label>
+        <div className="w-[300px]">
+          <label className="mt-2">Username</label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border-2 w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline"
             id="username"
             type="text"
           />
 
           <div className="w-full grid grid-cols-2 text-center">
-            <button className="p-2 m-2" onClick={closeModal}>
+            <button className="p-1 m-1" onClick={closeModal}>
               Back
             </button>
             <button
-              className="p-2 m-2 rounded-md text-white bg-indigo-500"
+              className="p-2 m-1 text-black bg-neongreen"
               onClick={() =>
                 updateSlug(document.getElementById("username").value)
               }

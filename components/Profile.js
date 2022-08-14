@@ -50,13 +50,11 @@ const Profile = () => {
   } else {
     return (
       <div className="w-full">
-        <div className="w-10/12 mx-auto">
-          <ProfileBox session={session} userData={userData} />
-          <FriendsList userData={userData} />
-          {userData.listening && (
-            <ProfileStats session={session} userData={userData} />
-          )}
-        </div>
+        <ProfileBox session={session} userData={userData} />
+        <FriendsList userData={userData} />
+        {userData.listening && (
+          <ProfileStats session={session} userData={userData} />
+        )}
       </div>
     );
   }

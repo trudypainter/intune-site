@@ -6,12 +6,14 @@ import TrackList from "../ProfileParts/TrackList";
 const SharedTracks = (props) => {
   // console.log("⭐️TRACK LIST", props.items);
   if (props.syncData.sharedTracks) {
-    return (
-      <div className="w-full">
-        <div className="text-2xl py-8">Shared Tracks</div>
-        <TrackList items={props.syncData.sharedTracks.items} />
-      </div>
-    );
+    if (props.syncData.sharedTracks.items.length > 0) {
+      return (
+        <div className="w-full">
+          <div className="text-2xl pt-4 pb-1">Shared Tracks</div>
+          <TrackList items={props.syncData.sharedTracks.items} />
+        </div>
+      );
+    }
   }
 };
 

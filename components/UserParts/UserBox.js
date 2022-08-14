@@ -7,11 +7,27 @@ import Modal from "react-modal";
 import QRCode from "react-qr-code";
 import { RWebShare } from "react-web-share";
 
+const icon_size = "40px";
+
 const server =
   process.env.NODE_ENV === "production"
     ? "https://in-tune.vercel.app/"
     : "http://localhost:3000/";
 
+const qrStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    backgroundColor: "#4AFE2C",
+    textAlign: "center",
+    border: "2px solid black",
+    borderRadius: "0px",
+  },
+};
 const customStyles = {
   content: {
     top: "50%",
@@ -20,6 +36,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
+    border: "2px solid black",
+    borderRadius: "0px",
   },
 };
 
@@ -67,39 +85,38 @@ const UserBox = (props) => {
   console.log("🏁 SYNCHED WIHT", syncedWith);
 
   return (
-    <div className="mt-10 mx-auto grid grid-cols-2">
-      <div className="">
+    <div className="pt-4 grid grid-cols-2 mx-auto w-[370px]">
+      <div className="w-full ">
         <img
-          className="rounded-full object-cover"
-          style={{ width: "40vw", height: "40vw" }}
+          className="rounded-full object-cover w-[160px] h-[160px] mx-auto"
           src={props.userData.image}
-        ></img>
+        ></img>{" "}
       </div>
-      <div className="text-center">
-        <div className="p-2 text-2xl">{props.userData.name}</div>
+      <div className="text-left text-xs ">
+        <div className="px-1">{props.session?.token?.name}</div>
 
-        <div id="slug-label" className="text-xl">
-          in-tune.app/{props.userData.slug}
+        <div id="slug-label" className=" px-1 ">
+          @{props.userData.slug}
         </div>
 
-        <div className="pt-8 flex justify-center space-x-4">
+        <div className="mt-1  flex justify-center space-x-4">
           {syncedWith === undefined ? (
             <div
               onClick={() => makeSyncLoggedIn()}
-              className="text-3xl mt-4 p-8 rounded-md bg-indigo-500 text-white hover:cursor-pointer"
+              className=" m-1 text-center w-full p-2 text-black bg-neongreen hover:cursor-pointer"
             >
               SYNC
             </div>
           ) : (
             <Link href={"/sync/" + syncedWith.id}>
-              <div className="text-3xl mt-4 p-8 rounded-md bg-indigo-100 text-black hover:cursor-pointer">
+              <div className=" m-auto text-center w-[180px] p-2 text-white bg-black hover:cursor-pointer">
                 View Sync
               </div>
             </Link>
           )}
         </div>
 
-        <div className="pt-8 flex justify-center space-x-4">
+        <div className="mt-2 flex justify-center space-x-2">
           <Link
             href={"https://open.spotify.com/user/" + props.userData.accounts}
           >
@@ -129,10 +146,15 @@ const UserBox = (props) => {
         </div>
       </div>
 
-      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={customStyles}>
-        <div style={{ background: "white", padding: "16px" }}>
-          <QRCode value={server + "qr/" + props.userData.id} />
+      <Modal isOpen={qrIsOpen} onRequestClose={closeQr} style={qrStyles}>
+        SCAN TO SYNC
+        <div style={{ background: "black", padding: "16px" }}>
+          <QRCode
+            bgColor="#4AFE2C"
+            value={server + "qr/" + props.userData.id}
+          />
         </div>
+        in-tune.app/{props.userData.slug}
       </Modal>
     </div>
   );

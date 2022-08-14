@@ -6,9 +6,9 @@ import TrackList from "./TrackList";
 import ArtistList from "./ArtistList";
 
 const selectedButtonCSS =
-  "bg-indigo-500 text-white p-2 rounded-2xl hover:cursor-pointer mx-1";
+  "bg-black text-white p-1 hover:cursor-pointer mx-0.5 border-2 text-xs";
 const unSelectedButtonCSS =
-  "bg-indigo-100 text-black p-2 rounded-2xl hover:cursor-pointer mx-1";
+  "bg-white text-black p-1 hover:cursor-pointer mx-0.5 border-2 text-xs";
 
 const server =
   process.env.NODE_ENV === "production"
@@ -58,57 +58,57 @@ const ProfileStats = (props) => {
   };
 
   return (
-    <div className="mt-10 mx-auto ">
-      <div className="text-2xl mb-4">Recent Listening</div>
-
+    <div className="mt-2 mx-auto ">
       {/* ⭐️ TYPE */}
-      <div className="grid grid-cols-2 text-center sticky top-20">
-        <div
-          onClick={() => {
-            setTrackSelected(true);
-            setDataType("tracks");
-            setSelectedInfo(allInfo["tracks"][timeRange]);
-          }}
-          className={trackSelected ? selectedButtonCSS : unSelectedButtonCSS}
-        >
-          Songs
+      <div className="text-center sticky top-11">
+        <div className="grid grid-cols-2 text-center">
+          <div
+            onClick={() => {
+              setTrackSelected(true);
+              setDataType("tracks");
+              setSelectedInfo(allInfo["tracks"][timeRange]);
+            }}
+            className={trackSelected ? selectedButtonCSS : unSelectedButtonCSS}
+          >
+            Songs
+          </div>
+          <div
+            onClick={() => {
+              setTrackSelected(false);
+              setDataType("artists");
+              setSelectedInfo(allInfo["artists"][timeRange]);
+            }}
+            className={!trackSelected ? selectedButtonCSS : unSelectedButtonCSS}
+          >
+            Artists
+          </div>
         </div>
-        <div
-          onClick={() => {
-            setTrackSelected(false);
-            setDataType("artists");
-            setSelectedInfo(allInfo["artists"][timeRange]);
-          }}
-          className={!trackSelected ? selectedButtonCSS : unSelectedButtonCSS}
-        >
-          Artists
-        </div>
-      </div>
-      {/* ⭐️ TIME RANGE */}
-      <div className="grid my-2 grid-cols-3 text-center sticky top-32">
-        <div
-          onClick={() => {
-            shortClicked();
-          }}
-          className={shortSelected ? selectedButtonCSS : unSelectedButtonCSS}
-        >
-          2 Weeks
-        </div>
-        <div
-          onClick={() => {
-            mediumClicked();
-          }}
-          className={medSelected ? selectedButtonCSS : unSelectedButtonCSS}
-        >
-          6 Months
-        </div>
-        <div
-          onClick={() => {
-            longClicked();
-          }}
-          className={longSelected ? selectedButtonCSS : unSelectedButtonCSS}
-        >
-          All Time
+        {/* ⭐️ TIME RANGE */}
+        <div className="grid my-1 grid-cols-3 text-center">
+          <div
+            onClick={() => {
+              shortClicked();
+            }}
+            className={shortSelected ? selectedButtonCSS : unSelectedButtonCSS}
+          >
+            2 Weeks
+          </div>
+          <div
+            onClick={() => {
+              mediumClicked();
+            }}
+            className={medSelected ? selectedButtonCSS : unSelectedButtonCSS}
+          >
+            6 Months
+          </div>
+          <div
+            onClick={() => {
+              longClicked();
+            }}
+            className={longSelected ? selectedButtonCSS : unSelectedButtonCSS}
+          >
+            All Time
+          </div>
         </div>
       </div>
 

@@ -45,7 +45,7 @@ const Sync = (props) => {
   } else {
     return (
       <div className="w-full">
-        <div className="w-10/12 mx-auto">
+        <div className="w-11/12 mx-auto pb-12">
           <Compatibility syncData={syncData} />
           <SharedArtists syncData={syncData} />
           <SharedTracks syncData={syncData} />

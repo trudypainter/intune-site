@@ -7,13 +7,11 @@ const ArtistList = (props) => {
   return (
     <div className="w-full grid grid-cols-2 ">
       {props.items.map((item, key) => (
-        <div key={key} className="flex my-2 text-left">
+        <div key={key} className="flex my-1 text-left">
           <div>
-            <img className="w-8 h-8 mr-2" src={item["image"]}></img>
+            <img className="w-[40px] h-[40px] mx-1" src={item["image"]}></img>
           </div>
-          <div className="text-lg">
-            <div>{item["name"]}</div>
-          </div>
+          <div className="text-xs truncate">{item["name"]}</div>
         </div>
       ))}
     </div>

@@ -4,6 +4,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import TrackList from "./ProfileParts/TrackList";
 import ArtistList from "./ProfileParts/ArtistList";
 import ProfileBox from "./ProfileParts/ProfileBox";
+import ProfileStats from "./ProfileParts/ProfileStats";
 import FriendsList from "./ProfileParts/FriendsLIst";
 import UserBox from "./UserParts/UserBox";
 import UserStats from "./UserParts/UserStats";
@@ -47,26 +48,35 @@ const User = (props) => {
     }
   }, [props.slug]);
 
+  // if (loading) {
+  //   return <Loading />;
+  // } else {
+  //   if (session) {
+  //     if (userData.email === session.session.user.email) {
+  //       window.open("/", "_self");
+  //     }
+  //   }
+  //   return (
+  //     <div className="w-full">
+  //       <UserBox
+  //         setLoading={setLoading}
+  //         session={session}
+  //         userData={userData}
+  //       />
+  //       <FriendsList userData={userData} />
+  //       <UserStats userData={userData} />
+  //     </div>
+  //   );
+  // }
   if (loading) {
     return <Loading />;
   } else {
-    if (session) {
-      if (userData.email === session.session.user.email) {
-        window.open("/", "_self");
-      }
-    }
     return (
       <div className="w-full">
-        {userData !== {} && (
-          <div className="w-10/12 mx-auto">
-            <UserBox
-              setLoading={setLoading}
-              session={session}
-              userData={userData}
-            />
-            <FriendsList userData={userData} />
-            <UserStats userData={userData} />
-          </div>
+        <UserBox session={session} userData={userData} />
+        <FriendsList userData={userData} />
+        {userData.listening && (
+          <ProfileStats session={session} userData={userData} />
         )}
       </div>
     );
