@@ -6,9 +6,9 @@ import ArtistList from "../ProfileParts/ArtistList";
 import TrackList from "../ProfileParts/TrackList";
 
 const selectedButtonCSS =
-  "bg-indigo-500 text-white p-2 rounded-2xl hover:cursor-pointer mx-1";
+  "bg-indigo-500 text-white p-2 rounded-2xl border-2 border-black hover:cursor-pointer mx-1";
 const unSelectedButtonCSS =
-  "bg-indigo-100 text-black p-2 rounded-2xl hover:cursor-pointer mx-1";
+  "bg-indigo-100 text-black p-2 rounded-2xl  border-2 border-black hover:cursor-pointer mx-1";
 
 const server =
   process.env.NODE_ENV === "production"
