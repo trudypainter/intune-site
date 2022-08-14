@@ -93,7 +93,7 @@ const UserBox = (props) => {
         ></img>{" "}
       </div>
       <div className="text-left text-xs ">
-        <div className="px-1">{props.session?.token?.name}</div>
+        <div className="px-1">{props.userData.slug}</div>
 
         <div id="slug-label" className=" px-1 ">
           @{props.userData.slug}
@@ -116,7 +116,7 @@ const UserBox = (props) => {
           )}
         </div>
 
-        <div className="mt-2 flex justify-center space-x-2">
+        <div className="mt-2 flex justify-center space-x-">
           <Link
             href={"https://open.spotify.com/user/" + props.userData.accounts}
           >
