@@ -9,7 +9,7 @@ const Landing = () => {
       {/* SPINNER */}
       <h1 className="w-10/12 text-center  mx-auto pt-12">In Tune </h1>
       <div
-        onClick={() => signIn()}
+        onClick={() => signIn("spotify")}
         className="w-24 mx-auto text-center bg-black text-white mb-12 hover:cursor-pointer"
       >
         Sign In

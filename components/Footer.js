@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { RWebShare } from "react-web-share";
-import Image from "next/image";
+import { MdIosShare } from "react-icons/md";
 
 const server =
   process.env.NODE_ENV === "production"
@@ -14,7 +14,7 @@ const Footer = (props) => {
   console.log("🔴session", session);
   return (
     <div className="z-10  w-full flex sticky bottom-0">
-      <div className="w-full bg-neongreen text-center p-2">
+      <div className="w-full bg-neongreen text-center p-2 hover:cursor-pointer">
         <RWebShare
           data={{
             text: "Check out this InTune profile.",
@@ -22,10 +22,13 @@ const Footer = (props) => {
             title: "InTune",
           }}
         >
-          <button>
-            Share
-            <Image width="38px" height="36px" src="/assets/share.png" />
-          </button>
+          <div className="flex justify-center">
+            {" "}
+            <div>Share</div>{" "}
+            <div className="mt-1">
+              <MdIosShare />
+            </div>
+          </div>
         </RWebShare>
       </div>
     </div>

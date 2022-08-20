@@ -12,7 +12,7 @@ const Header = () => {
       </div>
       <div className=" bg-black text-white w-1/2 text-center p-2 hover:cursor-pointer">
         {!session ? (
-          <div onClick={() => signIn()}>Sign In</div>
+          <div onClick={() => signIn("spotify")}>Sign In</div>
         ) : (
           <Link href="/">
             {/* <div className="h-12 w-12 m-2 rounded-full hover:cursor-pointer text-center pt-t">

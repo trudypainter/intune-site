@@ -26,9 +26,9 @@ const User = (props) => {
   const [userData, setUserData] = useState({});
   const [loading, setLoading] = useState(true);
 
-  console.log(session);
+  console.log("⚪️", session);
 
-  const getUserItem = async () => {
+  const getUserItem = async (session) => {
     const res = await fetch(`${server}api/user`, {
       method: "POST",
       body: JSON.stringify({
@@ -36,18 +36,24 @@ const User = (props) => {
       }),
     });
     const userData = await res.json();
-    console.log("😀 USER DATA", userData);
-    setUserData(userData);
-    setLoading(false);
+    console.log("😀 USER DATA", userData, session);
+    if (userData.email === session.session.user.email) {
+      window.open("/", "_self");
+    } else {
+      setUserData(userData);
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
+    console.log("🟢", session);
+
     // console.log("🍇 use effect");
-    if (props.slug) {
+    if (props.slug && session) {
       console.log("calling user endpoint");
-      getUserItem();
+      getUserItem(session);
     }
-  }, [props.slug]);
+  }, [props.slug, session]);
 
   if (loading) {
     return <Loading />;
