@@ -7,6 +7,7 @@ import ProfileBox from "./ProfileParts/ProfileBox";
 import FriendsList from "./ProfileParts/FriendsLIst";
 import ProfileStats from "./ProfileParts/ProfileStats";
 import Loading from "./ProfileParts/Loading";
+import Footer from "./Footer";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -55,6 +56,7 @@ const Profile = () => {
         {userData.listening && (
           <ProfileStats session={session} userData={userData} />
         )}
+        <Footer link={userData.slug} />
       </div>
     );
   }

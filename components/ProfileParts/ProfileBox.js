@@ -92,7 +92,7 @@ const ProfileBox = (props) => {
   };
 
   return (
-    <div className="pt-4 mx-auto grid grid-cols-2">
+    <div className="pt-4 mx-auto grid grid-cols-2 w-[370px]">
       <div className="w-full ">
         <img
           className="rounded-full object-cover w-[160px] h-[160px] mx-auto"
@@ -107,20 +107,20 @@ const ProfileBox = (props) => {
         </div>
 
         <div className=" flex justify-center space-x-2 mt-1">
-          <button onClick={() => signOut()}>
-            <Image
-              width={icon_size}
-              height={icon_size}
-              layout="fixed"
-              src="/assets/exit.png"
-            />
-          </button>
           <button onClick={openModal}>
             <Image
               width={icon_size}
               height={icon_size}
               layout="fixed"
               src="/assets/settings.png"
+            />
+          </button>
+          <button onClick={() => signOut()}>
+            <Image
+              width={icon_size}
+              height={icon_size}
+              layout="fixed"
+              src="/assets/exit.png"
             />
           </button>
         </div>

@@ -7,19 +7,21 @@ const Landing = () => {
   return (
     <div className="w-full">
       {/* SPINNER */}
-      <div className="w-10/12 text-center  mx-auto pt-12">In Tune </div>
+      <h1 className="w-10/12 text-center  mx-auto pt-12">In Tune </h1>
       <div
         onClick={() => signIn()}
-        className="w-24 mx-auto text-center bg-black text-white mb-12"
+        className="w-24 mx-auto text-center bg-black text-white mb-12 hover:cursor-pointer"
       >
         Sign In
       </div>
       {/* MIDDLE */}
-      <div className="w-full bg-black text-white p-8">
-        Scan. Sync. Connect.
-        <br></br>
-        <br></br>
-        InTune finds your compatibility using music.
+      <div className="w-full  bg-black text-white p-8">
+        <div className="mx-auto max-w-[600px]">
+          Scan. Sync. Connect.
+          <br></br>
+          <br></br>
+          InTune finds your compatibility using music.
+        </div>
       </div>
 
       {/* FOUNDERS */}
@@ -38,7 +40,7 @@ const Landing = () => {
               </div>
             </div>
           </Link>
-          <Link href={"/arisss"}>
+          <Link href={"/trudy"}>
             <div className="w-[180px] bg-white hover:cursor-pointer border-solid border-2">
               <img
                 className="w-[160px] h-[160px] rounded-full object-cover m-auto mt-1"

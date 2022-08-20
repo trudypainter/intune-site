@@ -62,7 +62,7 @@ const UserStats = (props) => {
   }, [props.userData.listening]);
 
   return (
-    <div className="mt-10 mx-auto ">
+    <div className="mt-10 mx-auto max-width-[500px]">
       <div className="text-2xl mb-4">Recent Listening</div>
 
       {/* ⭐️ TYPE */}

@@ -9,6 +9,7 @@ import FriendsList from "./ProfileParts/FriendsLIst";
 import UserBox from "./UserParts/UserBox";
 import UserStats from "./UserParts/UserStats";
 import Loading from "./ProfileParts/Loading";
+import Footer from "./Footer";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -62,6 +63,7 @@ const User = (props) => {
         {userData.listening && (
           <ProfileStats session={session} userData={userData} />
         )}
+        <Footer link={userData.slug} />
       </div>
     );
   }

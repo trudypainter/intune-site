@@ -8,9 +8,9 @@ const Header = () => {
   return (
     <div className="z-10  w-full flex sticky top-0">
       <div className=" bg-neongreen text-red-100 w-1/2 text-center p-2">
-        <Link href="/about">Intune</Link>
+        <Link href="/about">InTune</Link>
       </div>
-      <div className=" bg-black text-white w-1/2 text-center p-2">
+      <div className=" bg-black text-white w-1/2 text-center p-2 hover:cursor-pointer">
         {!session ? (
           <div onClick={() => signIn()}>Sign In</div>
         ) : (

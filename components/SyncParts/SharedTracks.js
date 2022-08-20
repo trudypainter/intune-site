@@ -8,7 +8,7 @@ const SharedTracks = (props) => {
   if (props.syncData.sharedTracks) {
     if (props.syncData.sharedTracks.items.length > 0) {
       return (
-        <div className="w-full">
+        <div className="w-full max-w-[800px] mx-auto">
           <div className="text-2xl pt-4 pb-1">Shared Tracks</div>
           <TrackList items={props.syncData.sharedTracks.items} />
         </div>

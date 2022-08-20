@@ -5,6 +5,7 @@ import Compatibility from "./SyncParts/Compatibility";
 import SharedArtists from "./SyncParts/SharedArtists";
 import SharedTracks from "./SyncParts/SharedTracks";
 import Loading from "./ProfileParts/Loading";
+import Footer from "./Footer";
 
 const selectedButtonCSS =
   "bg-indigo-500 text-white p-4 rounded-2xl hover:cursor-pointer mx-1 sticky top-24";
@@ -50,6 +51,7 @@ const Sync = (props) => {
           <SharedArtists syncData={syncData} />
           <SharedTracks syncData={syncData} />
         </div>
+        <Footer link={"sync/" + syncData.id} />
       </div>
     );
   }

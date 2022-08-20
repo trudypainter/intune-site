@@ -13,6 +13,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Arial Narrow"],
+      heading: ["Arial Black"],
     },
   },
   plugins: [],

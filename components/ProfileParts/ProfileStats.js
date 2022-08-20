@@ -58,7 +58,7 @@ const ProfileStats = (props) => {
   };
 
   return (
-    <div className="mt-2 mx-auto ">
+    <div className="mt-2 mx-auto max-w-[800px]">
       {/* ⭐️ TYPE */}
       <div className="text-center sticky top-11">
         <div className="grid grid-cols-2 text-center">
