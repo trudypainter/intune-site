@@ -22,7 +22,9 @@ const Compatibility = (props) => {
                 }}
                 src={props.syncData.requester.image}
               ></img>
-              <div className="pt-4">{props.syncData.requester.slug}</div>
+              <div className="pt-4 truncate">
+                {props.syncData.requester.slug}
+              </div>
             </div>
           </Link>
           <Link href={"/" + props.syncData.receiver.slug}>
@@ -37,7 +39,9 @@ const Compatibility = (props) => {
                 }}
                 src={props.syncData.receiver.image}
               ></img>
-              <div className="pt-4">{props.syncData.receiver.slug}</div>
+              <div className="pt-4 truncate">
+                {props.syncData.receiver.slug}
+              </div>
             </div>
           </Link>
         </div>

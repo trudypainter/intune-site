@@ -107,9 +107,9 @@ const UserBox = (props) => {
         ></img>{" "}
       </div>
       <div className="text-left text-xs ">
-        <div className="px-1">{props.userData.slug}</div>
+        <div className="px-1">{props.userData.name}</div>
 
-        <div id="slug-label" className=" px-1 ">
+        <div id="slug-label" className=" px-1  truncate w-[200px] ">
           @{props.userData.slug}
         </div>
 
