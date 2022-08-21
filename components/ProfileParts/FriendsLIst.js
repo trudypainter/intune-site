@@ -30,7 +30,7 @@ const FriendsList = (props) => {
       <div className="text-white pt-4 px-2 pb-2 mx-auto max-w-[800px]">
         FRIENDS - {allSyncs.length}
       </div>
-      <div className="flex overflow-x-scroll shrink-0 space-x-1 mx-auto max-w-[800px]">
+      <div className="flex overflow-x-scroll shrink-0 space-x-1 mx-auto p-2 max-w-[800px]">
         {allSyncs.map((sync) => (
           <Link key={sync.id} href={"/sync/" + sync.id}>
             <div className="text-center w-[200px] hover:cursor-pointer bg-white">

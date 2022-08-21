@@ -7,9 +7,9 @@ const Header = () => {
   console.log("🔴session", session);
   return (
     <div className="z-10  w-full flex sticky top-0">
-      <div className=" bg-neongreen text-red-100 w-1/2 text-center p-2">
+      <h1 className=" bg-neongreen text-red-100 w-1/2 text-center p-2">
         <Link href="/about">InTune</Link>
-      </div>
+      </h1>
       <div className=" bg-black text-white w-1/2 text-center p-2 hover:cursor-pointer">
         {!session ? (
           <div onClick={() => signIn("spotify")}>Sign In</div>

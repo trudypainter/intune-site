@@ -22,10 +22,11 @@ const parseSongs = (songJson) => {
 };
 
 const parseArtists = (songJson) => {
-  let longItems = songJson.items;
+  let items = songJson.items;
   let newItems = [];
 
-  for (let item of longItems) {
+  // console.log(songJson);
+  for (let item of items) {
     let shortenedItem = {
       image: item["images"]["0"]["url"],
       name: item["name"],
@@ -72,6 +73,7 @@ const handler = async (req, res) => {
 
   if (userPrisma.listening) {
     // return user listening data
+    console.log("✅ THE USER LISTENING WAS ALREADY RECORDED");
     userPrisma.accounts = userPrisma.accounts[0]["providerAccountId"];
     res.status(200).json(userPrisma);
   }
@@ -129,12 +131,14 @@ const handler = async (req, res) => {
     },
   });
 
+  console.log(userPrisma);
+  console.log("🔴", !userPrisma || !userPrisma.listening);
   if (!userPrisma || !userPrisma.listening) {
     // return user listening data
+    console.log(" ⭐️ updated ", userPrismaUpdate);
     res.status(200).json(userPrismaUpdate);
+    return;
   }
-
-  console.log(" ⭐️ updated ", userPrismaUpdate);
 };
 
 export default handler;

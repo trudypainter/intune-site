@@ -7,10 +7,12 @@ const Landing = () => {
   return (
     <div className="w-full">
       {/* SPINNER */}
-      <h1 className="w-10/12 text-center  mx-auto pt-12">In Tune </h1>
+      <h1 className="w-10/12 text-center text-5xl mx-auto pt-12 pb-12">
+        InTune{" "}
+      </h1>
       <div
         onClick={() => signIn("spotify")}
-        className="w-24 mx-auto text-center bg-black text-white mb-12 hover:cursor-pointer"
+        className="w-24 py-2 mx-auto text-center bg-black text-white mb-12 hover:cursor-pointer"
       >
         Sign In
       </div>

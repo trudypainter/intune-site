@@ -4,6 +4,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const server =
+  process.env.NODE_ENV === "production"
+    ? "https://in-tune.vercel.app/"
+    : "http://localhost:3000/";
+
 const getSync = async (res, syncId) => {
   // find the sync object that matches both user 1 and user 2
   // OR get the sync object from the id
@@ -132,7 +137,7 @@ const getCompatibility = (sharedArtists, sharedTracks) => {
   return parseInt(sigmoid((artistPercent + trackPercent) * 8) * 100);
 };
 
-const newSync = async (res, reqSession, receiverEmail) => {
+const newSync = async (res, reqAccessToken, reqEmail, receiverEmail) => {
   //   console.log("GOT NEW SYNC OBJECT");
   // get requester info
   // (whoever is logged in with cookies)
@@ -142,7 +147,7 @@ const newSync = async (res, reqSession, receiverEmail) => {
       OR: [
         {
           email: {
-            equals: reqSession.email,
+            equals: reqEmail,
           },
         },
         {
@@ -158,6 +163,55 @@ const newSync = async (res, reqSession, receiverEmail) => {
   // (user object that correlates to the slug)
   let receiverObj = userObjs[0];
   let requesterObj = userObjs[1];
+
+  console.log("⚪️", receiverObj);
+  console.log("⚪️", requesterObj);
+
+  if (!receiverObj.listening) {
+    console.log("⭐️ GETTING THAT NEW LISTENING");
+    fetch(`${server}api/listening`, {
+      method: "POST",
+      body: JSON.stringify({
+        token: reqAccessToken,
+        email: reqEmail,
+      }),
+    }).then((response) =>
+      response.json().then((userData) => {
+        console.log("🍇 user data", userData);
+        receiverObj = userData;
+        makeTheActualSync(res, requesterObj, receiverObj);
+      })
+    );
+  } else {
+    makeTheActualSync(res, requesterObj, receiverObj);
+  }
+};
+
+const makeTheActualSync = async (res, requesterObj, receiverObj) => {
+  // check if a sync already exists
+  let a = requesterObj.email;
+  let b = receiverObj.email;
+  console.log("🟪 looking for ", a, b);
+  let potSyncObj = await prisma.sync.findFirst({
+    where: {
+      OR: [
+        {
+          requesterEmail: a,
+          receiverEmail: b,
+        },
+        {
+          requesterEmail: b,
+          receiverEmail: a,
+        },
+      ],
+    },
+  });
+  if (potSyncObj) {
+    console.log("⭐️ A SYNC OBJ ALREADY EXISTED");
+    res.status(200).json(potSyncObj);
+    return;
+  }
+
   let sharedArtists = getSharedArtists(
     receiverObj.listening,
     requesterObj.listening
@@ -196,9 +250,10 @@ const newSync = async (res, reqSession, receiverEmail) => {
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const bodyJSON = JSON.parse(req.body);
-    const reqSession = bodyJSON["requester"];
+    const reqEmail = bodyJSON["requester"]["session"]["user"]["email"];
+    const reqAccessToken = bodyJSON["requester"]["token"]["accessToken"];
     const receiverUserObj = bodyJSON["receiver"];
-    newSync(res, reqSession, receiverUserObj);
+    newSync(res, reqAccessToken, reqEmail, receiverUserObj);
   } else if (req.method === "GET") {
     const query = req.query;
     const { id } = query;

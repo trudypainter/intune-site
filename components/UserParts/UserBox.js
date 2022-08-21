@@ -51,14 +51,12 @@ const UserBox = (props) => {
     setQrOpen(false);
   }
 
-  const makeSyncLoggedIn = async () => {
-    // set loading page
-    props.setLoading(true);
+  const makeSyncLoggedIn = async (session) => {
     console.log("🔵 making new sync request");
     const res = await fetch(`${server}api/sync`, {
       method: "POST",
       body: JSON.stringify({
-        requester: props.session.session.user,
+        requester: session,
         receiver: props.userData.email,
       }),
     });
@@ -66,6 +64,22 @@ const UserBox = (props) => {
     console.log("🟡 sync response", data);
     // redirect to new sync page
     window.open("/sync/" + data.id, "_self");
+  };
+
+  const makeSync = async () => {
+    // set loading page
+    props.setLoading(true);
+
+    if (props.session) {
+      makeSyncLoggedIn(props.session);
+    } else {
+      console.log("💗 about to log in....");
+      signIn("spotify", {
+        callbackUrl:
+          server +
+          `/syncnoauth?email=${encodeURIComponent(props.userData.email)}`,
+      });
+    }
   };
 
   let syncedWith = undefined;
@@ -101,12 +115,12 @@ const UserBox = (props) => {
 
         <div className="mt-1  flex justify-center space-x-4">
           {syncedWith === undefined ? (
-            <div
-              onClick={() => makeSyncLoggedIn()}
+            <h1
+              onClick={() => makeSync()}
               className=" m-1 text-center w-full p-2 text-black bg-neongreen hover:cursor-pointer"
             >
               SYNC
-            </div>
+            </h1>
           ) : (
             <Link href={"/sync/" + syncedWith.id}>
               <div className=" m-auto text-center w-[180px] p-2 text-white bg-black hover:cursor-pointer">

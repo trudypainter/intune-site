@@ -28,7 +28,7 @@ const User = (props) => {
 
   console.log("⚪️", session);
 
-  const getUserItem = async (session) => {
+  const getUserItem = async () => {
     const res = await fetch(`${server}api/user`, {
       method: "POST",
       body: JSON.stringify({
@@ -37,7 +37,7 @@ const User = (props) => {
     });
     const userData = await res.json();
     console.log("😀 USER DATA", userData, session);
-    if (userData.email === session.session.user.email) {
+    if (session && userData.email === session.session.user.email) {
       window.open("/", "_self");
     } else {
       setUserData(userData);
@@ -49,9 +49,9 @@ const User = (props) => {
     console.log("🟢", session);
 
     // console.log("🍇 use effect");
-    if (props.slug && session) {
+    if (props.slug && session !== undefined) {
       console.log("calling user endpoint");
-      getUserItem(session);
+      getUserItem();
     }
   }, [props.slug, session]);
 
