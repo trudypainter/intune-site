@@ -14,7 +14,7 @@ const Footer = (props) => {
   console.log("🔴session", session);
   return (
     <div className="z-10  w-full flex sticky bottom-0">
-      <div className="w-full bg-neongreen text-center p-2 hover:cursor-pointer">
+      <div className="w-full bg-neongreen text-center p-1 hover:cursor-pointer">
         <RWebShare
           data={{
             text: "Check out this InTune profile.",
