@@ -2,9 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "ArialN";
+  src: url("../public/fonts/Arialn.ttf");
+}
+
+@font-face {
+  font-family: "ArialB";
+  src: url("../public/fonts/ariblk.ttf");
+}
+
 @layer base {
   h1 {
     @apply font-heading;
+    font-family: "ArialB";
   }
 }
 
@@ -12,7 +23,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Arial Narrow";
+  font-family: "ArialN";
   font-size: 32px;
   font-weight: 200;
 }

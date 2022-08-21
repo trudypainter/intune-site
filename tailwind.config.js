@@ -12,8 +12,8 @@ module.exports = {
       white: "white",
     },
     fontFamily: {
-      sans: ["Arial Narrow"],
-      heading: ["Arial Black"],
+      sans: ["ArialN"],
+      heading: ["ArialB"],
     },
   },
   plugins: [],
