@@ -86,8 +86,7 @@ const ProfileBox = (props) => {
     } else {
       setStatus("");
       setIsOpen(false);
-      document.getElementById("slug-label").innerHTML =
-        "in-tune.app/" + newSlug;
+      document.getElementById("slug-label").innerHTML = "@" + newSlug;
     }
   };
 
@@ -167,7 +166,7 @@ const ProfileBox = (props) => {
             value={server + "qr/" + props.userData.id}
           />
         </div>
-        in-tune.app/{props.userData.slug}
+        @{props.userData.slug}
       </Modal>
 
       <Modal

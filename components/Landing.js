@@ -19,10 +19,16 @@ const Landing = () => {
       {/* MIDDLE */}
       <div className="w-full  bg-black text-white p-8">
         <div className="mx-auto max-w-[600px]">
-          Scan. Sync. Connect.
+          We are InTune!
+          <br></br>
+          <br></br>3 students who came together because of our love for music.
+          Our mission is to change the way people connect through music. We
+          believe by sharing music interests we can make strengthen existing
+          friendships and build new connections. And also find new music along
+          the way!
           <br></br>
           <br></br>
-          InTune finds your compatibility using music.
+          So let’s InTune!
         </div>
       </div>
 
