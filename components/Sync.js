@@ -26,7 +26,7 @@ const Sync = (props) => {
 
   const getSyncItem = async () => {
     console.log("🟢 hitting sync", props.id);
-    const res = await fetch(`${server}api/sync?id=${props.id}`, {
+    const res = await fetch(`/api/sync?id=${props.id}`, {
       method: "GET",
     });
     const syncData = await res.json();

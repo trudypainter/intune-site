@@ -29,7 +29,7 @@ const User = (props) => {
   console.log("⚪️", session);
 
   const getUserItem = async () => {
-    const res = await fetch(`${server}api/user`, {
+    const res = await fetch(`/api/user`, {
       method: "POST",
       body: JSON.stringify({
         slug: props.slug,

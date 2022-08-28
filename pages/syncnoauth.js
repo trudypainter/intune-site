@@ -20,7 +20,7 @@ export default function UserPage() {
       window.open("/", "_self");
     }
 
-    const res = await fetch(`${server}api/sync`, {
+    const res = await fetch(`/api/sync`, {
       method: "POST",
       body: JSON.stringify({
         requester: session,

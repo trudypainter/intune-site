@@ -71,7 +71,7 @@ const ProfileBox = (props) => {
   const updateSlug = async (newSlug) => {
     setStatus("Checking...");
     console.log("🔵", newSlug);
-    const res = await fetch(`${server}api/updateSlug`, {
+    const res = await fetch(`/api/updateSlug`, {
       method: "POST",
       body: JSON.stringify({
         slug: newSlug,

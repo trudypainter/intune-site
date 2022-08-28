@@ -53,7 +53,7 @@ const UserBox = (props) => {
 
   const makeSyncLoggedIn = async (session) => {
     console.log("🔵 making new sync request");
-    const res = await fetch(`${server}api/sync`, {
+    const res = await fetch(`/api/sync`, {
       method: "POST",
       body: JSON.stringify({
         requester: session,

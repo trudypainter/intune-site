@@ -20,7 +20,7 @@ export default function SyncPage() {
   console.log("💭ROUTE", code);
 
   const getQrItem = async (code) => {
-    const res = await fetch(`${server}api/qr`, {
+    const res = await fetch(`/api/qr`, {
       method: "POST",
       body: JSON.stringify({
         code: code,

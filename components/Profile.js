@@ -28,7 +28,7 @@ const Profile = () => {
 
   const getUserItem = async () => {
     console.log("🍇 hitting user");
-    const res = await fetch(`${server}api/listening`, {
+    const res = await fetch(`/api/listening`, {
       method: "POST",
       body: JSON.stringify({
         token: session.token.accessToken,

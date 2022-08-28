@@ -169,7 +169,7 @@ const newSync = async (res, reqAccessToken, reqEmail, receiverEmail) => {
 
   if (!receiverObj.listening) {
     console.log("⭐️ GETTING THAT NEW LISTENING");
-    fetch(`${server}api/listening`, {
+    fetch(`/api/listening`, {
       method: "POST",
       body: JSON.stringify({
         token: reqAccessToken,
