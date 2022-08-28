@@ -131,7 +131,7 @@ const handler = async (req, res) => {
     },
   });
 
-  console.log(userPrisma);
+  // console.log(userPrisma);
   console.log("🔴", !userPrisma || !userPrisma.listening);
   if (!userPrisma || !userPrisma.listening) {
     // return user listening data

@@ -5,7 +5,7 @@ import { MdIosShare } from "react-icons/md";
 
 const server =
   process.env.NODE_ENV === "production"
-    ? "https://in-tune.vercel.app/"
+    ? "https://intune.site/"
     : "http://localhost:3000/";
 
 const Footer = (props) => {

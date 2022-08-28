@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 const server =
   process.env.NODE_ENV === "production"
-    ? "https://in-tune.vercel.app/"
+    ? "https://intune.site/"
     : "http://localhost:3000/";
 
 const getSync = async (res, syncId) => {

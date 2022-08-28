@@ -8,7 +8,7 @@ import Loading from "../components/ProfileParts/Loading";
 
 const server =
   process.env.NODE_ENV === "production"
-    ? "https://in-tune.vercel.app/"
+    ? "https://intune.site/"
     : "http://localhost:3000/";
 
 export default function UserPage() {
